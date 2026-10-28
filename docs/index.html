@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XSLM — Extra Small Language Model: definition and how to build one</title>
+  <meta name="description" content="XSLM (Extra Small Language Model) is a language model with millions to a few hundred million parameters — one step smaller than LLMs and SLMs. A term coined by SONUB (sonub.com), with the basic method to build one from scratch.">
+  <link rel="canonical" href="https://thruthesky.github.io/xslm/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="XSLM — Extra Small Language Model">
+  <meta property="og:description" content="One step smaller than LLMs and SLMs: millions to a few hundred million parameters, on-device, very low cost, a specialist for one job.">
+  <meta property="og:url" content="https://thruthesky.github.io/xslm/">
+  <meta name="theme-color" content="#5b3fd9">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "DefinedTerm",
+    "name": "XSLM",
+    "alternateName": "Extra Small Language Model",
+    "description": "A language model with millions to a few hundred million parameters, one step smaller than LLMs and SLMs. Optimized for on-device use, very low cost, and specialized for one job. A term coined by SONUB (sonub.com) in October 2026.",
+    "url": "https://thruthesky.github.io/xslm/",
+    "inDefinedTermSet": {
+      "@type": "DefinedTermSet",
+      "name": "SONUB XSLM",
+      "url": "https://sonub.com/ai/build"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "JaeHo, Song",
+      "email": "mailto:thruthesky@gmail.com"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-row">
+      <a class="brand" href="#top">XSLM</a>
+      <nav class="nav" aria-label="Sections">
+        <a href="#definition">Definition</a>
+        <a href="#size">Size</a>
+        <a href="#features">Features</a>
+        <a href="#build">How to build</a>
+        <a href="#run">Run it</a>
+        <a href="#origin">Origin</a>
+        <a href="https://github.com/thruthesky/xslm">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow">Public definition · since October 2026</p>
+        <h1>XSLM <span>Extra Small Language Model</span></h1>
+        <div class="definition" id="definition">
+          <p class="term">XSLM <span>/ noun</span></p>
+          <p>A <strong>language model with millions to a few hundred million parameters</strong> — one step smaller than LLMs and SLMs. It runs on small devices, costs almost nothing to run, and is built to do <strong>one job</strong> well.</p>
+          <p class="coined">A term coined by <a href="https://sonub.com">SONUB (sonub.com)</a>.</p>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="https://sonub.com/ai/build">Build one in your browser</a>
+          <a class="btn" href="https://github.com/thruthesky/xslm">Source on GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="size">
+      <div class="wrap">
+        <h2>How small is it — LLM, SLM, XSLM</h2>
+        <p class="lead">Model size is the number of learned numbers (parameters). Each step down is about ten to a thousand times smaller.</p>
+
+        <div class="scale" role="img" aria-label="Parameter scale from one thousand to one trillion: LLM from tens to hundreds of billions, SLM around a few billion, XSLM from millions to a few hundred million, the reference model 1,248.">
+          <div class="scale-row llm" style="--from:77.8%;--to:100%">
+            <span class="scale-name">LLM</span>
+            <span class="scale-track"><span class="scale-bar"></span></span>
+            <span class="scale-note">tens to hundreds of billions · data-center GPUs</span>
+          </div>
+          <div class="scale-row slm" style="--from:66.7%;--to:77.2%">
+            <span class="scale-name">SLM</span>
+            <span class="scale-track"><span class="scale-bar"></span></span>
+            <span class="scale-note">around a few billion · one GPU</span>
+          </div>
+          <div class="scale-row xslm" style="--from:33.3%;--to:63.3%">
+            <span class="scale-name">XSLM</span>
+            <span class="scale-track"><span class="scale-bar"></span></span>
+            <span class="scale-note">millions to a few hundred million · phone, wearable, IoT</span>
+          </div>
+          <div class="scale-row tiny" style="--from:0%;--to:2.2%">
+            <span class="scale-name">Reference</span>
+            <span class="scale-track"><span class="scale-bar"></span></span>
+            <span class="scale-note">1,248 · the learning model in this repository</span>
+          </div>
+          <div class="scale-axis">
+            <span class="scale-name"></span>
+            <span class="scale-ticks"><span>1K</span><span>1M</span><span>1B</span><span>1T</span></span>
+            <span class="scale-note">parameters (log scale)</span>
+          </div>
+        </div>
+
+        <table class="table">
+          <thead><tr><th>Model</th><th>Parameters</th><th>Where it runs</th></tr></thead>
+          <tbody>
+            <tr><td>LLM — Large Language Model</td><td>tens to hundreds of billions</td><td>GPU servers in data centers</td></tr>
+            <tr><td>SLM — Small Language Model</td><td>around a few billion</td><td>a powerful computer or a single GPU</td></tr>
+            <tr class="hl"><td><strong>XSLM — Extra Small Language Model</strong></td><td><strong>millions to a few hundred million</strong></td><td>smartphones, wearables, IoT devices</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <h2>Three features</h2>
+        <div class="cards">
+          <article class="card">
+            <span class="num">1</span>
+            <h3>On-device</h3>
+            <p>Light enough to run on its own, without a network connection, on smartphones, wearables and IoT equipment.</p>
+          </article>
+          <article class="card">
+            <span class="num">2</span>
+            <h3>Very low cost</h3>
+            <p>An SLM needs several GB of VRAM just to load. An XSLM runs in a few hundred MB of memory or less, so deploying and running it costs almost nothing.</p>
+          </article>
+          <article class="card">
+            <span class="num">3</span>
+            <h3>A specialist for one job</h3>
+            <p>Not an encyclopedia like an LLM, but one task done very well: summarizing, classifying text, function calling, or routing for an AI agent.</p>
+          </article>
+        </div>
+
+        <div class="split">
+          <div>
+            <h3>Models of this size in real use</h3>
+            <ul>
+              <li><strong>SmolLM2-135M</strong> (Hugging Face, 2024) — about 135 million parameters. A GPT-style model that continues text and runs on smartphones.</li>
+              <li><strong>MobileBERT</strong> (Google, 2020) — about 25 million parameters. Understands sentences to classify them or find an answer in a passage.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Shrinking a big model to XSLM size</h3>
+            <ul>
+              <li><strong>Knowledge distillation</strong> — a small student model learns to follow the probabilities of a big teacher model.</li>
+              <li><strong>Quantization</strong> — each parameter is stored as an 8-bit or 4-bit number instead of 32-bit. Memory shrinks 4 to 8 times.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="build">
+      <div class="wrap">
+        <h2>How to build an XSLM — the basic method</h2>
+        <p class="lead">An XSLM is a chain of small programs. Each one reads the file made by the previous one and makes the next file. Change an earlier file, and rebuild everything after it.</p>
+
+        <ol class="flow">
+          <li><span class="step">1</span><div><h3>Data</h3><code>prepare.py</code><p><code>data/raw.txt</code> → <code>train.txt</code>, <code>val.txt</code>. Q/A lines, split into training and validation text. The data format decides what the model becomes good at.</p></div></li>
+          <li><span class="step">2</span><div><h3>Tokenizer</h3><code>tokenizer.py</code><p>Character-level BPE. Learns merge rules and turns text into token IDs and back — <code>decode(encode(text)) == text</code>.</p></div></li>
+          <li><span class="step">3</span><div><h3>Model</h3><code>engine.py</code> <code>model.py</code><p>Autograd (<code>Value</code>, <code>backward</code>) and a GPT: token + position embedding, causal attention, MLP, residuals, output head.</p></div></li>
+          <li><span class="step">4</span><div><h3>Training</h3><code>train.py</code><p>Next-token prediction with cross-entropy loss and gradient descent. Saves a resumable checkpoint after every step.</p></div></li>
+          <li><span class="step">5</span><div><h3>Generation</h3><code>generate.py</code><p>Predict the next token, pick one, append, repeat — with temperature, top-k and seed.</p></div></li>
+          <li><span class="step">6</span><div><h3>Runner</h3><code>runner.py</code><p>Loads the weights once and serves an HTTP API: <code>GET /health</code>, <code>POST /generate</code>.</p></div></li>
+          <li><span class="step">7</span><div><h3>XChat</h3><code>xchat.py</code><p>A chat client: XChat → Runner → XSLM.</p></div></li>
+          <li><span class="step">8</span><div><h3>Publish</h3><code>export.py</code><p>Writes <code>model.safetensors</code>, <code>config.json</code> and <code>tokenizer.json</code> for Hugging Face.</p></div></li>
+        </ol>
+
+        <div class="code-grid">
+          <figure class="code">
+            <figcaption>Tokenizer — learn one BPE merge</figcaption>
+<pre><code>pairs = Counter(zip(ids, ids[1:]))
+pair, frequency = pairs.most_common(1)[0]
+new_id = len(vocab)
+vocab.append(vocab[pair[0]] + vocab[pair[1]])
+ids = merge(ids, pair, new_id)</code></pre>
+          </figure>
+          <figure class="code">
+            <figcaption>Model — causal attention at one position</figcaption>
+<pre><code>q = linear(h, w['query'])
+keys.append(linear(h, w['key']))
+values.append(linear(h, w['value']))
+scores = [dot(q, k) / width ** 0.5 for k in keys]
+attention = softmax(scores)   # only past positions</code></pre>
+          </figure>
+          <figure class="code">
+            <figcaption>Training — one step</figcaption>
+<pre><code>loss = model.loss(window[:-1], window[1:])
+loss.backward()
+for p in model.parameters:
+    p.data -= learning_rate * p.grad * scale</code></pre>
+          </figure>
+          <figure class="code">
+            <figcaption>Generation — sample the next token</figcaption>
+<pre><code>logits = model.forward(ids[-context:])[-1]
+candidates = ranked[:top_k]
+weights = [exp((logits[i] - peak) / temperature)
+           for i in candidates]
+token = rng.choices(candidates, weights=weights)[0]</code></pre>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="run">
+      <div class="wrap">
+        <h2>Run the reference model</h2>
+        <p class="lead">The <a href="https://github.com/thruthesky/xslm/tree/main/reference"><code>reference/</code></a> folder is the complete course code. Pure Python 3, standard library only — no <code>pip</code>, no GPU, no API key, no pretrained weights.</p>
+
+        <div class="split">
+          <figure class="code">
+            <figcaption>Terminal</figcaption>
+<pre><code>git clone https://github.com/thruthesky/xslm
+cd xslm/reference
+python3 prepare.py
+python3 tokenizer.py
+python3 engine.py
+python3 train.py
+python3 generate.py
+python3 runner.py &amp;
+python3 xchat.py</code></pre>
+          </figure>
+          <figure class="code out">
+            <figcaption>What you will see</figcaption>
+<pre><code>train 12
+val 3
+vocab: 40 merges: 12
+roundtrip: OK [29, 13, 14, 1, 30]
+y = 15.0 dy/dx = 8.0
+parameters: 1248 resume: 0
+validation: 3.7568
+step: 1 loss: 3.6875
+...
+saved: checkpoints/model.json
+XSLM Runner: ('127.0.0.1', 8765)
+You&gt; hi</code></pre>
+          </figure>
+        </div>
+
+        <h3>The 1,248 parameters</h3>
+        <table class="table params">
+          <thead><tr><th>Weights</th><th>Shape</th><th>Count</th></tr></thead>
+          <tbody>
+            <tr><td>Token embedding</td><td>40 × 8</td><td>320</td></tr>
+            <tr><td>Position embedding</td><td>12 × 8</td><td>96</td></tr>
+            <tr><td>Query, key, value, project</td><td>4 × (8 × 8)</td><td>256</td></tr>
+            <tr><td>MLP expand, contract</td><td>16 × 8 + 8 × 16</td><td>256</td></tr>
+            <tr><td>Output head</td><td>40 × 8</td><td>320</td></tr>
+            <tr class="hl"><td><strong>Total</strong> — vocabulary 40, width 8, context 12, 1 block, 1 head</td><td></td><td><strong>1,248</strong></td></tr>
+          </tbody>
+        </table>
+        <p class="note">After 20 training steps the answers are still mostly random — that is expected. The model is shrunk to the smallest size so you can read every calculation, but the parts are the same. Grow the same structure and train it on data for one job, and it becomes a practical XSLM.</p>
+      </div>
+    </section>
+
+    <section class="band" id="learn">
+      <div class="wrap">
+        <h2>Learn it step by step — in your web browser</h2>
+        <p class="lead">The full course types and trains an XSLM inside a Linux terminal that runs in the web browser. Nothing to install.</p>
+        <ol class="steps">
+          <li><a href="https://sonub.com/ai/build">XSLM overview</a></li>
+          <li><a href="https://sonub.com/ai/build/environment">Development environment</a></li>
+          <li><a href="https://sonub.com/ai/build/structure">Project structure and data</a></li>
+          <li><a href="https://sonub.com/ai/build/tokenizer">BPE tokenizer</a></li>
+          <li><a href="https://sonub.com/ai/build/model">GPT model</a></li>
+          <li><a href="https://sonub.com/ai/build/training">Training and checkpoints</a></li>
+          <li><a href="https://sonub.com/ai/build/generation">Text generation and sampling</a></li>
+          <li><a href="https://sonub.com/ai/build/runner">Runner</a></li>
+          <li><a href="https://sonub.com/ai/build/xchat">XChat → Runner → XSLM</a></li>
+          <li><a href="https://sonub.com/ai/build/publish">Publish your model</a></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="origin">
+      <div class="wrap">
+        <h2>Origin of the term</h2>
+        <p>The term <strong>XSLM (Extra Small Language Model)</strong> was coined by <a href="https://sonub.com">SONUB (sonub.com)</a> in October 2026, as the name of its course for learning to build an AI from scratch. This page is the public definition of the term.</p>
+        <figure class="cite">
+          <figcaption>How to cite</figcaption>
+          <p>XSLM (Extra Small Language Model). SONUB, 2026. https://thruthesky.github.io/xslm/</p>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p>XSLM — Extra Small Language Model · <a href="https://sonub.com/ai/build">sonub.com/ai/build</a> · <a href="https://github.com/thruthesky/xslm">github.com/thruthesky/xslm</a></p>
+      <p class="author">Author: JaeHo, Song · Contact: <a href="mailto:thruthesky@gmail.com">thruthesky@gmail.com</a></p>
+    </div>
+  </footer>
+  <script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+__pycache__/
+reference/checkpoints/
+reference/data/train.txt
+reference/data/val.txt
+reference/data/tokenizer.json
+reference/hub/
+reference/runner.log
+reference/runner.pid
+.DS_Store

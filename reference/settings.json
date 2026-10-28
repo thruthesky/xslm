@@ -1,0 +1,11 @@
+{
+    "width": 8,
+    "context": 12,
+    "merges": 12,
+    "steps": 20,
+    "learning_rate": 0.03,
+    "seed": 7,
+    "tokens": 24,
+    "max_tokens": 64,
+    "port": 8765
+}

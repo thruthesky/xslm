@@ -1,0 +1,15 @@
+Q: hello | A: hello friend.
+Q: hi | A: hi friend.
+Q: name | A: i am xslm.
+Q: sun | A: the sun is warm.
+Q: cat | A: a cat can nap.
+Q: dog | A: a dog can run.
+Q: red | A: red is a color.
+Q: blue | A: blue is a color.
+Q: learn | A: i learn from text.
+Q: code | A: i can learn code.
+Q: moon | A: the moon is in the sky.
+Q: rain | A: rain is water.
+Q: book | A: i can read a book.
+Q: tea | A: tea is warm.
+Q: bye | A: bye friend.
