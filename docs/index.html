@@ -71,40 +71,40 @@
         <h2>How small is it — LLM, SLM, XSLM</h2>
         <p class="lead">Model size is the number of learned numbers (parameters). Each step down is about ten to a thousand times smaller.</p>
 
-        <div class="scale" role="img" aria-label="Parameter scale from one thousand to one trillion: LLM from tens to hundreds of billions, SLM around a few billion, XSLM from millions to a few hundred million, the reference model 1,248.">
-          <div class="scale-row llm" style="--from:77.8%;--to:100%">
-            <span class="scale-name">LLM</span>
-            <span class="scale-track"><span class="scale-bar"></span></span>
-            <span class="scale-note">tens to hundreds of billions · data-center GPUs</span>
-          </div>
-          <div class="scale-row slm" style="--from:66.7%;--to:77.2%">
-            <span class="scale-name">SLM</span>
-            <span class="scale-track"><span class="scale-bar"></span></span>
-            <span class="scale-note">around a few billion · one GPU</span>
-          </div>
-          <div class="scale-row xslm" style="--from:33.3%;--to:63.3%">
-            <span class="scale-name">XSLM</span>
-            <span class="scale-track"><span class="scale-bar"></span></span>
-            <span class="scale-note">millions to a few hundred million · phone, wearable, IoT</span>
-          </div>
-          <div class="scale-row tiny" style="--from:0%;--to:2.2%">
-            <span class="scale-name">Reference</span>
-            <span class="scale-track"><span class="scale-bar"></span></span>
-            <span class="scale-note">1,248 · the learning model in this repository</span>
-          </div>
-          <div class="scale-axis">
-            <span class="scale-name"></span>
-            <span class="scale-ticks"><span>1K</span><span>1M</span><span>1B</span><span>1T</span></span>
-            <span class="scale-note">parameters (log scale)</span>
-          </div>
-        </div>
-
-        <table class="table">
-          <thead><tr><th>Model</th><th>Parameters</th><th>Where it runs</th></tr></thead>
+        <table class="table scale">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th class="scale-col">Size (log scale)<span class="scale-ticks" aria-hidden="true"><span>1K</span><span>1M</span><span>1B</span><span>1T</span></span></th>
+              <th>Parameters</th>
+              <th>Where it runs</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td>LLM — Large Language Model</td><td>tens to hundreds of billions</td><td>GPU servers in data centers</td></tr>
-            <tr><td>SLM — Small Language Model</td><td>around a few billion</td><td>a powerful computer or a single GPU</td></tr>
-            <tr class="hl"><td><strong>XSLM — Extra Small Language Model</strong></td><td><strong>millions to a few hundred million</strong></td><td>smartphones, wearables, IoT devices</td></tr>
+            <tr class="llm" style="--from:77.8%;--to:100%">
+              <td><strong>LLM</strong><small>Large Language Model</small></td>
+              <td><span class="scale-track" aria-hidden="true"><span class="scale-bar"></span></span></td>
+              <td>tens to hundreds of billions</td>
+              <td>GPU servers in data centers</td>
+            </tr>
+            <tr class="slm" style="--from:66.7%;--to:77.2%">
+              <td><strong>SLM</strong><small>Small Language Model</small></td>
+              <td><span class="scale-track" aria-hidden="true"><span class="scale-bar"></span></span></td>
+              <td>around a few billion</td>
+              <td>a powerful computer or a single GPU</td>
+            </tr>
+            <tr class="xslm hl" style="--from:33.3%;--to:63.3%">
+              <td><strong>XSLM</strong><small>Extra Small Language Model</small></td>
+              <td><span class="scale-track" aria-hidden="true"><span class="scale-bar"></span></span></td>
+              <td><strong>millions to a few hundred million</strong></td>
+              <td>smartphones, wearables, IoT devices</td>
+            </tr>
+            <tr class="tiny" style="--from:0%;--to:2.2%">
+              <td><strong>Reference</strong><small>the learning model in this repository</small></td>
+              <td><span class="scale-track" aria-hidden="true"><span class="scale-bar"></span></span></td>
+              <td>1,248</td>
+              <td>Python 3, no GPU</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -156,14 +156,14 @@
         <p class="lead">An XSLM is a chain of small programs. Each one reads the file made by the previous one and makes the next file. Change an earlier file, and rebuild everything after it.</p>
 
         <ol class="flow">
-          <li><span class="step">1</span><div><h3>Data</h3><code>prepare.py</code><p><code>data/raw.txt</code> → <code>train.txt</code>, <code>val.txt</code>. Q/A lines, split into training and validation text. The data format decides what the model becomes good at.</p></div></li>
-          <li><span class="step">2</span><div><h3>Tokenizer</h3><code>tokenizer.py</code><p>Character-level BPE. Learns merge rules and turns text into token IDs and back — <code>decode(encode(text)) == text</code>.</p></div></li>
-          <li><span class="step">3</span><div><h3>Model</h3><code>engine.py</code> <code>model.py</code><p>Autograd (<code>Value</code>, <code>backward</code>) and a GPT: token + position embedding, causal attention, MLP, residuals, output head.</p></div></li>
-          <li><span class="step">4</span><div><h3>Training</h3><code>train.py</code><p>Next-token prediction with cross-entropy loss and gradient descent. Saves a resumable checkpoint after every step.</p></div></li>
-          <li><span class="step">5</span><div><h3>Generation</h3><code>generate.py</code><p>Predict the next token, pick one, append, repeat — with temperature, top-k and seed.</p></div></li>
-          <li><span class="step">6</span><div><h3>Runner</h3><code>runner.py</code><p>Loads the weights once and serves an HTTP API: <code>GET /health</code>, <code>POST /generate</code>.</p></div></li>
-          <li><span class="step">7</span><div><h3>XChat</h3><code>xchat.py</code><p>A chat client: XChat → Runner → XSLM.</p></div></li>
-          <li><span class="step">8</span><div><h3>Publish</h3><code>export.py</code><p>Writes <code>model.safetensors</code>, <code>config.json</code> and <code>tokenizer.json</code> for Hugging Face.</p></div></li>
+          <li><span class="step">1</span><div class="flow-name"><h3>Data</h3><code>prepare.py</code></div><p><code>data/raw.txt</code> → <code>train.txt</code>, <code>val.txt</code>. Q/A lines, split into training and validation text. The data format decides what the model becomes good at.</p></li>
+          <li><span class="step">2</span><div class="flow-name"><h3>Tokenizer</h3><code>tokenizer.py</code></div><p>Character-level BPE. Learns merge rules and turns text into token IDs and back — <code>decode(encode(text)) == text</code>.</p></li>
+          <li><span class="step">3</span><div class="flow-name"><h3>Model</h3><code>engine.py</code> <code>model.py</code></div><p>Autograd (<code>Value</code>, <code>backward</code>) and a GPT: token + position embedding, causal attention, MLP, residuals, output head.</p></li>
+          <li><span class="step">4</span><div class="flow-name"><h3>Training</h3><code>train.py</code></div><p>Next-token prediction with cross-entropy loss and gradient descent. Saves a resumable checkpoint after every step.</p></li>
+          <li><span class="step">5</span><div class="flow-name"><h3>Generation</h3><code>generate.py</code></div><p>Predict the next token, pick one, append, repeat — with temperature, top-k and seed.</p></li>
+          <li><span class="step">6</span><div class="flow-name"><h3>Runner</h3><code>runner.py</code></div><p>Loads the weights once and serves an HTTP API: <code>GET /health</code>, <code>POST /generate</code>.</p></li>
+          <li><span class="step">7</span><div class="flow-name"><h3>XChat</h3><code>xchat.py</code></div><p>A chat client: XChat → Runner → XSLM.</p></li>
+          <li><span class="step">8</span><div class="flow-name"><h3>Publish</h3><code>export.py</code></div><p>Writes <code>model.safetensors</code>, <code>config.json</code> and <code>tokenizer.json</code> for Hugging Face.</p></li>
         </ol>
 
         <div class="code-grid">
@@ -246,7 +246,7 @@ You&gt; hi</code></pre>
             <tr><td>Query, key, value, project</td><td>4 × (8 × 8)</td><td>256</td></tr>
             <tr><td>MLP expand, contract</td><td>16 × 8 + 8 × 16</td><td>256</td></tr>
             <tr><td>Output head</td><td>40 × 8</td><td>320</td></tr>
-            <tr class="hl"><td><strong>Total</strong> — vocabulary 40, width 8, context 12, 1 block, 1 head</td><td></td><td><strong>1,248</strong></td></tr>
+            <tr class="hl"><td colspan="2"><strong>Total</strong> — vocabulary 40, width 8, context 12, 1 block, 1 head</td><td><strong>1,248</strong></td></tr>
           </tbody>
         </table>
         <p class="note">After 20 training steps the answers are still mostly random — that is expected. The model is shrunk to the smallest size so you can read every calculation, but the parts are the same. Grow the same structure and train it on data for one job, and it becomes a practical XSLM.</p>
