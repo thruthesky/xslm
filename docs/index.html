@@ -162,9 +162,20 @@
           <li><span class="step">4</span><div class="flow-name"><h3>Training</h3><code>train.py</code></div><p>Next-token prediction with cross-entropy loss and gradient descent. Saves a resumable checkpoint after every step.</p></li>
           <li><span class="step">5</span><div class="flow-name"><h3>Generation</h3><code>generate.py</code></div><p>Predict the next token, pick one, append, repeat — with temperature, top-k and seed.</p></li>
           <li><span class="step">6</span><div class="flow-name"><h3>Runner</h3><code>runner.py</code></div><p>Loads the weights once and serves an HTTP API: <code>GET /health</code>, <code>POST /generate</code>.</p></li>
-          <li><span class="step">7</span><div class="flow-name"><h3>XChat</h3><code>xchat.py</code></div><p>A chat client: XChat → Runner → XSLM.</p></li>
+          <li><span class="step">7</span><div class="flow-name"><h3>XChat</h3><code>xchat.py</code></div><p>A simple chatbot for testing the XSLM you built, in your web browser. It is only a test tool. <a href="#xchat">What it is for</a></p></li>
           <li><span class="step">8</span><div class="flow-name"><h3>Publish</h3><code>export.py</code></div><p>Writes <code>model.safetensors</code>, <code>config.json</code> and <code>tokenizer.json</code> for Hugging Face.</p></li>
         </ol>
+
+        <div class="purpose" id="xchat">
+          <h3>What XChat is for</h3>
+          <p>XChat is just for testing. It is a simple chatbot that shows whether the XSLM you built can answer. It is not the final product. Once the test goes well, the model moves on:</p>
+          <ol class="flow">
+            <li><span class="step">1</span><div class="flow-name"><h4>Test</h4><span>XChat</span></div><p>Chat with your model in the web browser and check its answers.</p></li>
+            <li><span class="step">2</span><div class="flow-name"><h4>Publish</h4><span>Hugging Face</span></div><p>Upload the model so anyone can download it.</p></li>
+            <li><span class="step">3</span><div class="flow-name"><h4>Try it in common tools</h4><span>LM Studio, Ollama, llama.cpp</span></div><p>Download the model and test it the way people test any other model. These tools only load the formats and architectures they support, usually GGUF, which <code>export.py</code> does not produce.</p></li>
+            <li><span class="step">4</span><div class="flow-name"><h4>Embed it</h4><span>ONNX and similar formats</span></div><p>Convert the model and run it inside your own app.</p></li>
+          </ol>
+        </div>
 
         <div class="code-grid">
           <figure class="code">

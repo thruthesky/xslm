@@ -35,7 +35,7 @@ An XSLM is a chain of small programs. Each program reads the file made by the pr
 | 4. Training | `train.py` | data + tokenizer → `checkpoints/model.json` | Next-token prediction, cross-entropy loss, gradient descent, resumable checkpoints |
 | 5. Generation | `generate.py` | checkpoint → text | Repeats "predict the next token, pick one" with temperature, top-k and seed |
 | 6. Runner | `runner.py` | checkpoint → HTTP API | `GET /health`, `POST /generate` on `127.0.0.1:8765` |
-| 7. XChat | `xchat.py` | your question → Runner | A terminal chat client: XChat → Runner → XSLM |
+| 7. XChat | `xchat.py` | your question → Runner | A simple chatbot for testing your XSLM. It is only a test tool: XChat → Runner → XSLM |
 | 8. Publish | `export.py` | checkpoint → `hub/` | Writes `model.safetensors`, `config.json`, `tokenizer.json` for Hugging Face |
 
 When an earlier file changes, rebuild everything after it (for example: edit `raw.txt` → run prepare, tokenizer and train again).
